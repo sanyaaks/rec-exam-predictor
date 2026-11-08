@@ -1,0 +1,9 @@
+{
+  "name": "rec-exam-predictor-root",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "backend": "cd backend && .venv\\Scripts\\python -m uvicorn app.main:app --reload --port 8000"
+  }
+}

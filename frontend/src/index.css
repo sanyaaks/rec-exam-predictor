@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { background: #faf8f4; color: #1f2440; }
+body { font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+h1, h2, h3, h4 { font-family: 'DM Sans', Inter, sans-serif; letter-spacing: -0.01em; }
+
+@layer components {
+  .card { @apply bg-white rounded-2xl border border-line shadow-soft; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap; }
+  .btn-primary { @apply btn bg-ink text-white hover:bg-[#2c3257]; }
+  .btn-accent { @apply btn bg-lav-500 text-white hover:bg-lav-600; }
+  .btn-ghost { @apply btn text-ink-soft hover:bg-lav-50 hover:text-ink; }
+  .btn-outline { @apply btn border border-line bg-white text-ink hover:border-lav-200 hover:bg-lav-50; }
+  .btn-sm { @apply px-3 py-1.5 text-xs rounded-lg; }
+  .input { @apply w-full min-w-0 rounded-xl border border-line bg-white px-3 py-2 text-sm text-ink placeholder:text-ink-mute focus:outline-none focus:ring-2 focus:ring-lav-200 focus:border-lav-400; }
+  .label { @apply block text-xs font-medium text-ink-soft mb-1; }
+  .chip { @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium; }
+  .muted { @apply text-ink-mute; }
+}
+
+.prose-answer h1, .prose-answer h2, .prose-answer h3 { font-weight: 600; margin: 1rem 0 .4rem; }
+.prose-answer h1 { font-size: 1.15rem; } .prose-answer h2 { font-size: 1.05rem; } .prose-answer h3 { font-size: .95rem; }
+.prose-answer p { margin: .4rem 0; line-height: 1.6; }
+.prose-answer ul { list-style: disc; padding-left: 1.25rem; margin: .4rem 0; }
+.prose-answer ol { list-style: decimal; padding-left: 1.25rem; margin: .4rem 0; }
+.prose-answer li { margin: .15rem 0; }
+.prose-answer pre { background: #f5f3ff; border-radius: .75rem; padding: .75rem; overflow-x: auto; font-size: .75rem; line-height: 1.35; }
+.prose-answer code { font-size: .8rem; }
+.prose-answer table { border-collapse: collapse; font-size: .8rem; margin: .5rem 0; display: block; overflow-x: auto; }
+.prose-answer th, .prose-answer td { border: 1px solid #ebe7df; padding: .25rem .5rem; }
+.prose-answer strong { color: #1f2440; }
+
+.paper-sheet { font-family: 'Times New Roman', Georgia, serif; }
+
+@media print {
+  .no-print { display: none !important; }
+  body, html { background: white !important; }
+  .print-area { box-shadow: none !important; border: none !important; margin: 0 !important; padding: 0 !important; max-width: none !important; }
+  main { padding: 0 !important; margin-left: 0 !important; }
+}
+
+/* Grid/flex children shouldn't be widened by long select options or unbroken text */
+@layer base {
+  .grid > * { min-width: 0; }
+}
