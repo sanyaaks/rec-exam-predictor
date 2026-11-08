@@ -4,8 +4,10 @@ import { api, SubjectFull, TopicStatus } from "../../api";
 import { Bar, Empty, errMsg, Notice, PriorityPill, Skeleton, Stat, useToast } from "../../components/ui";
 import { EXAM_LABEL, PRIORITY_HEX, QTYPE_LABEL, STATUS_LABEL, STATUS_STYLE, STATUSES } from "../../lib/format";
 import { useAsync } from "../../lib/hooks";
+import { useTheme } from "../../lib/theme";
 
-const C = { CAT1: "#a99cf8", CAT2: "#7aa2e8", SEMESTER: "#1f2440" };
+// Semester series is navy on light backgrounds and a light lavender-grey on dark ones
+const palette = (dark: boolean) => ({ CAT1: "#a99cf8", CAT2: "#7aa2e8", SEMESTER: dark ? "#d6d3f0" : "#1f2440" });
 const PIE = ["#8b7cf6", "#5b86d9", "#a99cf8", "#7aa2e8", "#c4b5fd", "#94a3b8", "#cbd5e1"];
 const axis = { fontSize: 11, fill: "#7c8098" };
 
@@ -71,6 +73,7 @@ function Tracker({ subject }: { subject: SubjectFull }) {
 }
 
 export default function AnalysisTab({ subject }: { subject: SubjectFull }) {
+  const C = palette(useTheme().resolved === "dark");
   const { data, loading, error } = useAsync(() => api.analysis(subject.id), [subject.id]);
   if (error) return <Notice tone="warn">{error}</Notice>;
   if (loading && !data) return <div className="grid gap-4 lg:grid-cols-2">{[1, 2, 3, 4].map((i) => <Skeleton key={i} className="h-72" />)}</div>;

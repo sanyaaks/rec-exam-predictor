@@ -2,19 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body { background: #faf8f4; color: #1f2440; }
+/* ---------- theme tokens (RGB channels so Tailwind opacity modifiers work) ---------- */
+:root {
+  color-scheme: light;
+  --c-canvas: 250 248 244;   --c-surface: 255 255 255;  --c-subtle: 252 251 248;  --c-sidebar: 246 243 238;
+  --c-ink: 31 36 64;         --c-ink-soft: 74 79 106;   --c-ink-mute: 124 128 152; --c-line: 235 231 223;
+  --c-lav-50: 245 243 255;   --c-lav-100: 236 233 251;  --c-lav-200: 220 214 250;  --c-lav-400: 169 156 248;
+  --c-lav-500: 139 124 246;  --c-lav-600: 111 94 232;   --c-lav-700: 88 71 201;
+  --c-sky2-50: 238 244 253;  --c-sky2-100: 221 233 251; --c-sky2-400: 122 162 232; --c-sky2-500: 91 134 217;
+  --c-sky2-600: 63 111 216;  --c-shadow: 31 36 64;
+  --c-stone-50: 250 250 249; --c-stone-100: 245 245 244; --c-stone-200: 231 229 228; --c-stone-300: 214 211 209;
+}
+.dark {
+  color-scheme: dark;
+  --c-canvas: 17 18 25;      --c-surface: 26 28 38;     --c-subtle: 22 24 33;     --c-sidebar: 21 22 31;
+  --c-ink: 232 233 241;      --c-ink-soft: 182 185 203; --c-ink-mute: 138 142 166; --c-line: 46 49 64;
+  --c-lav-50: 34 30 58;      --c-lav-100: 43 37 80;     --c-lav-200: 64 56 118;   --c-lav-400: 143 128 240;
+  --c-lav-500: 139 124 246;  --c-lav-600: 169 156 248;  --c-lav-700: 196 186 255;
+  --c-sky2-50: 23 34 56;     --c-sky2-100: 31 45 74;    --c-sky2-400: 122 162 232; --c-sky2-500: 107 147 227;
+  --c-sky2-600: 143 177 240; --c-shadow: 0 0 0;
+  --c-stone-50: 29 31 42;    --c-stone-100: 38 41 56;   --c-stone-200: 48 52 70;   --c-stone-300: 64 68 88;
+}
+/* The predicted exam paper always looks like paper, even in dark mode */
+.dark .paper-sheet {
+  color-scheme: light;
+  --c-canvas: 250 248 244;   --c-surface: 255 255 255;  --c-subtle: 252 251 248;
+  --c-ink: 31 36 64;         --c-ink-soft: 74 79 106;   --c-ink-mute: 124 128 152; --c-line: 235 231 223;
+  --c-lav-50: 245 243 255;   --c-lav-100: 236 233 251;  --c-lav-200: 220 214 250;  --c-lav-500: 139 124 246;
+  --c-lav-600: 111 94 232;   --c-lav-700: 88 71 201;    --c-sky2-50: 238 244 253;  --c-sky2-600: 63 111 216;
+  background-color: #fff;
+}
+
+html, body { background: rgb(var(--c-canvas)); color: rgb(var(--c-ink)); transition: background-color .2s ease; }
 body { font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 h1, h2, h3, h4 { font-family: 'DM Sans', Inter, sans-serif; letter-spacing: -0.01em; }
 
 @layer components {
-  .card { @apply bg-white rounded-2xl border border-line shadow-soft; }
+  .card { @apply bg-surface rounded-2xl border border-line shadow-soft; }
   .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap; }
-  .btn-primary { @apply btn bg-ink text-white hover:bg-[#2c3257]; }
+  .btn-primary { @apply btn bg-ink text-white hover:bg-ink/90 dark:bg-lav-500 dark:hover:bg-lav-400; }
   .btn-accent { @apply btn bg-lav-500 text-white hover:bg-lav-600; }
   .btn-ghost { @apply btn text-ink-soft hover:bg-lav-50 hover:text-ink; }
-  .btn-outline { @apply btn border border-line bg-white text-ink hover:border-lav-200 hover:bg-lav-50; }
+  .btn-outline { @apply btn border border-line bg-surface text-ink hover:border-lav-200 hover:bg-lav-50; }
   .btn-sm { @apply px-3 py-1.5 text-xs rounded-lg; }
-  .input { @apply w-full min-w-0 rounded-xl border border-line bg-white px-3 py-2 text-sm text-ink placeholder:text-ink-mute focus:outline-none focus:ring-2 focus:ring-lav-200 focus:border-lav-400; }
+  .input { @apply w-full min-w-0 rounded-xl border border-line bg-surface px-3 py-2 text-sm text-ink placeholder:text-ink-mute focus:outline-none focus:ring-2 focus:ring-lav-200 focus:border-lav-400; }
   .label { @apply block text-xs font-medium text-ink-soft mb-1; }
   .chip { @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium; }
   .muted { @apply text-ink-mute; }
@@ -26,11 +57,11 @@ h1, h2, h3, h4 { font-family: 'DM Sans', Inter, sans-serif; letter-spacing: -0.0
 .prose-answer ul { list-style: disc; padding-left: 1.25rem; margin: .4rem 0; }
 .prose-answer ol { list-style: decimal; padding-left: 1.25rem; margin: .4rem 0; }
 .prose-answer li { margin: .15rem 0; }
-.prose-answer pre { background: #f5f3ff; border-radius: .75rem; padding: .75rem; overflow-x: auto; font-size: .75rem; line-height: 1.35; }
+.prose-answer pre { background: rgb(var(--c-lav-50)); border-radius: .75rem; padding: .75rem; overflow-x: auto; font-size: .75rem; line-height: 1.35; }
 .prose-answer code { font-size: .8rem; }
 .prose-answer table { border-collapse: collapse; font-size: .8rem; margin: .5rem 0; display: block; overflow-x: auto; }
-.prose-answer th, .prose-answer td { border: 1px solid #ebe7df; padding: .25rem .5rem; }
-.prose-answer strong { color: #1f2440; }
+.prose-answer th, .prose-answer td { border: 1px solid rgb(var(--c-line)); padding: .25rem .5rem; }
+.prose-answer strong { color: rgb(var(--c-ink)); }
 
 .paper-sheet { font-family: 'Times New Roman', Georgia, serif; }
 
@@ -44,4 +75,41 @@ h1, h2, h3, h4 { font-family: 'DM Sans', Inter, sans-serif; letter-spacing: -0.0
 /* Grid/flex children shouldn't be widened by long select options or unbroken text */
 @layer base {
   .grid > * { min-width: 0; }
+}
+
+
+/* ---------- dark mode: standard Tailwind shades used for status tints ---------- */
+.dark .bg-white:not(.paper-sheet, .paper-sheet *) { background-color: rgb(var(--c-surface)); }
+/* any translucent white (bg-white/60, /70 …) becomes translucent surface */
+.dark :is([class^="bg-white/"], [class*=" bg-white/"]):not(.paper-sheet *) { background-color: rgb(var(--c-surface) / 0.7); }
+.dark [class*="hover:bg-white"]:hover { background-color: rgb(var(--c-surface)); }
+.dark .hover\:bg-rose-50:hover { background-color: rgb(244 63 94 / 0.15); }
+.dark .bg-amber-50 { background-color: rgb(245 158 11 / 0.13); }
+.dark .bg-emerald-50 { background-color: rgb(16 185 129 / 0.13); }
+.dark .bg-rose-50 { background-color: rgb(244 63 94 / 0.13); }
+.dark .bg-orange-50 { background-color: rgb(249 115 22 / 0.13); }
+.dark .bg-teal-50 { background-color: rgb(20 184 166 / 0.13); }
+.dark :is(.text-amber-500, .text-amber-600, .text-amber-700, .text-amber-800) { color: #fbbf24; }
+.dark :is(.text-emerald-600, .text-emerald-700, .text-emerald-800) { color: #34d399; }
+.dark :is(.text-rose-600, .text-rose-700) { color: #fb7185; }
+.dark .text-orange-700 { color: #fb923c; }
+.dark .text-teal-700 { color: #2dd4bf; }
+.dark :is(.text-stone-400, .text-stone-500, .text-slate-500, .text-slate-600) { color: rgb(var(--c-ink-mute)); }
+.dark .ring-amber-200 { --tw-ring-color: rgb(245 158 11 / 0.35); }
+.dark :is(.border-orange-200, .border-orange-300) { border-color: rgb(249 115 22 / 0.45); }
+.dark .from-white { --tw-gradient-from: rgb(var(--c-surface)) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(var(--c-surface) / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+.dark .bg-ink\/25 { background-color: rgb(0 0 0 / 0.55); }
+.dark :is(.bg-ink):not(.paper-sheet *) { background-color: rgb(var(--c-lav-500)); }
+
+/* charts (Recharts sets colours as SVG attributes) */
+.dark .recharts-cartesian-grid line { stroke: rgb(var(--c-line)); }
+.dark .recharts-tooltip-cursor { fill: rgb(var(--c-lav-50)); }
+.dark .recharts-default-tooltip { background-color: rgb(var(--c-surface)) !important; border-color: rgb(var(--c-line)) !important; }
+.dark .recharts-tooltip-label, .dark .recharts-legend-item-text { color: rgb(var(--c-ink-soft)) !important; }
+.dark .recharts-pie-sector path { stroke: rgb(var(--c-surface)); }
+
+@media print {
+  .dark { color-scheme: light; }
 }

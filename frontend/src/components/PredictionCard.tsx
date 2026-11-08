@@ -65,7 +65,7 @@ export default function PredictionCard({ it, weights, onPrepare, onSave, rank }:
       <AnimatePresence initial={false}>
         {open && (
           <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-            <div className="grid gap-5 border-t border-line bg-[#fcfbf8] p-4 sm:p-5 md:grid-cols-2">
+            <div className="grid gap-5 border-t border-line bg-subtle p-4 sm:p-5 md:grid-cols-2">
               <div>
                 <h4 className="mb-2 text-xs font-semibold uppercase tracking-wide muted">Reasons</h4>
                 <ul className="space-y-1.5 text-sm text-ink-soft">

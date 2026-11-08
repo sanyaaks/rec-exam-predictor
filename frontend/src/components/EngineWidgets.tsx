@@ -130,7 +130,7 @@ function TopicItem({ t, onGenerate }: { t: TopicRow; onGenerate: () => void }) {
         </div>
       </div>
       {open && (
-        <div className="border-t border-line bg-[#fcfbf8] px-3 py-3 text-sm">
+        <div className="border-t border-line bg-subtle px-3 py-3 text-sm">
           <ul className="space-y-1 text-ink-soft">{t.reasons.map((r, i) => <li key={i} className="flex gap-2"><span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-lav-500" />{r}</li>)}</ul>
           {t.examples.length > 0 && <div className="mt-2 text-xs muted">e.g. “{t.examples[0]}”</div>}
           <div className="mt-2 text-[11px] muted">

@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
+import ThemeToggle from "./ThemeToggle";
 import { BookOpen, CalendarCheck, LayoutDashboard, LogOut, Menu, Sparkles, Upload, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
@@ -70,24 +71,27 @@ export default function Layout() {
   return (
     <div className="min-h-screen bg-canvas">
       {/* desktop sidebar */}
-      <aside className="no-print fixed inset-y-0 left-0 hidden w-60 flex-col gap-6 border-r border-line bg-[#f6f3ee] px-4 py-5 lg:flex">
+      <aside className="no-print fixed inset-y-0 left-0 hidden w-60 flex-col gap-6 border-r border-line bg-sidebar px-4 py-5 lg:flex">
         <Logo />
         <NavItems />
-        <div className="mt-auto"><UserBox /></div>
+        <div className="mt-auto space-y-3"><ThemeToggle /><UserBox /></div>
       </aside>
 
       {/* mobile top bar */}
       <header className="no-print sticky top-0 z-40 flex items-center justify-between border-b border-line bg-canvas/90 px-4 py-3 backdrop-blur lg:hidden">
         <Logo />
-        <button className="btn-ghost btn-sm" onClick={() => setOpen(true)} aria-label="Open menu"><Menu className="h-5 w-5" /></button>
+        <div className="flex items-center gap-1">
+          <ThemeToggle compact />
+          <button className="btn-ghost btn-sm" onClick={() => setOpen(true)} aria-label="Open menu"><Menu className="h-5 w-5" /></button>
+        </div>
       </header>
       <AnimatePresence>
         {open && (
           <motion.div className="fixed inset-0 z-50 bg-ink/25 lg:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setOpen(false)}>
-            <motion.div className="flex h-full w-72 flex-col gap-6 bg-[#f6f3ee] px-4 py-5" initial={{ x: -30 }} animate={{ x: 0 }} exit={{ x: -30 }} onClick={(e) => e.stopPropagation()}>
+            <motion.div className="flex h-full w-72 flex-col gap-6 bg-sidebar px-4 py-5" initial={{ x: -30 }} animate={{ x: 0 }} exit={{ x: -30 }} onClick={(e) => e.stopPropagation()}>
               <div className="flex items-center justify-between"><Logo /><button className="btn-ghost btn-sm" onClick={() => setOpen(false)}><X className="h-5 w-5" /></button></div>
               <NavItems onNavigate={() => setOpen(false)} />
-              <div className="mt-auto"><UserBox /></div>
+              <div className="mt-auto space-y-3"><ThemeToggle /><UserBox /></div>
             </motion.div>
           </motion.div>
         )}

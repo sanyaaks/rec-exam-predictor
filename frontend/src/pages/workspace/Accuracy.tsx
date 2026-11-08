@@ -81,7 +81,7 @@ function FoldRow({ f }: { f: Fold }) {
         <td className="px-3 py-2.5 text-center font-medium">{pct(best.semantic_topic_match_rate)}</td>
       </tr>
       {open && (
-        <tr><td colSpan={7} className="bg-[#fcfbf8] px-3 py-3">
+        <tr><td colSpan={7} className="bg-subtle px-3 py-3">
           <div className="grid gap-4 lg:grid-cols-2">
             <div>
               <h4 className="mb-1.5 text-xs font-semibold uppercase tracking-wide muted">Top predicted topics</h4>
@@ -234,7 +234,7 @@ function ModelRow({ m, onChange }: { m: ModelVersion; onChange: () => void }) {
         {m.status === "active" && <button className="btn-ghost btn-sm" disabled={busy} onClick={() => act(() => api.archiveModel(m.id), `Model v${m.version} archived — statistical ranking will be used`)}>Archive</button>}
       </div>
       {open && (
-        <div className="border-t border-line bg-[#fcfbf8] px-3 py-3 text-sm">
+        <div className="border-t border-line bg-subtle px-3 py-3 text-sm">
           <p className="text-ink-soft">{g.reason}</p>
           <p className="mt-1 text-xs muted">
             {g.dated_papers ?? "?"} dated papers · {g.origins ?? "?"} evaluation points · {g.positives ?? "?"} topic appearances

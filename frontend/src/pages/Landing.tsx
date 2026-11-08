@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { api, auth } from "../api";
 import { Logo } from "../components/Layout";
 import { errMsg, Spinner, useToast } from "../components/ui";
+import ThemeToggle from "../components/ThemeToggle";
 
 const FEATURES = [
   { icon: Upload, title: "Upload previous question papers", body: "Drop in CAT 1, CAT 2 and end-semester papers as PDF, Word or photos. Questions, marks and units are pulled out for you to review." },
@@ -50,6 +51,7 @@ export default function Landing() {
             <Link to="/app" className="btn-primary">Open dashboard</Link>
           ) : (
             <>
+              <ThemeToggle compact />
               <Link to="/login" className="btn-ghost">Sign in</Link>
               <Link to="/register" className="btn-primary hidden sm:inline-flex">Create account</Link>
             </>
