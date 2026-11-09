@@ -33,5 +33,5 @@ LLM_ENABLED = bool(os.getenv("ANTHROPIC_API_KEY") or os.getenv("ANTHROPIC_AUTH_T
 # Optional neural embeddings (pip install sentence-transformers). TF-IDF otherwise.
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "")
 
-CORS_ORIGINS = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173").split(",")
+CORS_ORIGINS = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://127.0.0.1:3000,http://localhost:8000,http://127.0.0.1:8000").split(",")
 MAX_UPLOAD_MB = int(os.getenv("MAX_UPLOAD_MB", "25"))
